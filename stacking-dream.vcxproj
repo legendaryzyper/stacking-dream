@@ -111,12 +111,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\sundance\Desktop\stacking-dream\lib\stb;C:\Users\sundance\Desktop\stacking-dream\lib\glfw\include;C:\Users\sundance\Desktop\stacking-dream\lib\glad\include;C:\Users\sundance\Desktop\stacking-dream\lib\cglm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\stb;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include;$(ProjectDir)lib\cglm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\sundance\Desktop\stacking-dream\lib\glad\src;C:\Users\sundance\Desktop\stacking-dream\lib\glfw\src\Release;C:\Users\sundance\Desktop\stacking-dream\lib\cglm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src\Release;$(ProjectDir)lib\cglm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cglm.lib;glfw3.lib;glad.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
@@ -132,12 +132,12 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\sundance\Desktop\stacking-dream\lib\stb;C:\Users\sundance\Desktop\stacking-dream\lib\glfw\include;C:\Users\sundance\Desktop\stacking-dream\lib\glad\include;C:\Users\sundance\Desktop\stacking-dream\lib\cglm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\stb;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include;$(ProjectDir)lib\cglm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\sundance\Desktop\stacking-dream\lib\glad\src;C:\Users\sundance\Desktop\stacking-dream\lib\glfw\src\Release;C:\Users\sundance\Desktop\stacking-dream\lib\cglm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src\Release;$(ProjectDir)lib\cglm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cglm.lib;glfw3.lib;glad.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
