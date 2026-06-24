@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="stacking-dream.vcxproj" />
+  <Project Path="stacking-dream.vcxproj" Id="a4962237-fe3a-49b4-9824-df88f973ad83" />
 </Solution>
