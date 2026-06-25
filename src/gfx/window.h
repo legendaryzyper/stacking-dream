@@ -1,7 +1,7 @@
 #pragma once
 
-#include "gfx.h"
 #include "../util/util.h"
+#include "gfx.h"
 
 typedef void (*FWindow)();
 

@@ -2,21 +2,13 @@
 
 Window window;
 
-static void init(void) {
-    window.init();
-}
+static void init(void) { window.init(); }
 
-static void tick(void) {
-    window.tick();
-}
+static void tick(void) { window.tick(); }
 
-static void update(void) {
-    window.update();
-}
+static void update(void) { window.update(); }
 
-static void render(void) {
-    window.render();
-}
+static void render(void) { window.render(); }
 
 static void destroy(void) {
     window.destroy();
@@ -49,7 +41,7 @@ void window_init(FWindow init, FWindow tick, FWindow update, FWindow render, FWi
 
 void window_loop(void) {
     init();
-    
+
     while (!glfwWindowShouldClose(window.handle)) {
         // tick();
 
