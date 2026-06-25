@@ -3,7 +3,7 @@
 static GLuint compile(const char *path, GLenum type) {
     FILE *f;
     char *text;
-    long len;
+    s32 len;
 
     f = fopen(path, "rb");
     fseek(f, 0, SEEK_END);
@@ -39,6 +39,9 @@ void shader_init(Shader *self, const char *vpath, const char *fpath) {
     glAttachShader(self->handle, self->fhandle);
 
     glLinkProgram(self->handle);
+
+    glDeleteShader(self->vhandle);
+    glDeleteShader(self->fhandle);
 }
 
 void shader_destroy(Shader *self) { glDeleteProgram(self->handle); }
