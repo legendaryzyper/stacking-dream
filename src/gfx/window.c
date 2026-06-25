@@ -42,15 +42,14 @@ void window_init(FWindow init, FWindow tick, FWindow update, FWindow render, FWi
 #endif
 
     window.handle = glfwCreateWindow(window.size.x, window.size.y, "stacking dream", NULL, NULL);
+    
     glfwMakeContextCurrent(window.handle);
 
     glfwSetFramebufferSizeCallback(window.handle, frame_buffer_size_callback);
 
     gladLoadGL();
 
-    int fb_width, fb_height;
-    glfwGetFramebufferSize(window.handle, &fb_width, &fb_height);
-    glViewport(0, 0, fb_width, fb_height);
+    glViewport(0, 0, window.size.x, window.size.y);
 }
 
 void window_loop(void) {

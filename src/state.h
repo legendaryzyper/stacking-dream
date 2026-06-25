@@ -11,7 +11,7 @@
 typedef struct State {
     Shader shader;
     VertexArray vao;
-    Buffer vbo;
+    Buffer vbo, ebo;
 } State;
 
 extern State state;

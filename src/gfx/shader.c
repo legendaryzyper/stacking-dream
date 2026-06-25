@@ -19,7 +19,7 @@ static GLuint compile(const char *path, GLenum type) {
 
     GLuint handle = glCreateShader(type);
 
-    glShaderSource(handle, 1, (const GLchar *const *)&text, (const GLint *)&len);
+    glShaderSource(handle, 1, (const GLchar *const *)&text, NULL);
     glCompileShader(handle);
 
     free(text);
