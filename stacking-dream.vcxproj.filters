@@ -36,10 +36,10 @@
     <ClCompile Include="src\gfx\shader.c">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="src\gfx\buffer_object.c">
+    <ClCompile Include="src\gfx\buffer.c">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="src\gfx\vertex_attribute_object.c">
+    <ClCompile Include="src\gfx\vertex_array.c">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,10 +59,10 @@
     <ClInclude Include="src\gfx\shader.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="src\gfx\buffer_object.h">
+    <ClInclude Include="src\gfx\buffer.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="src\gfx\vertex_attribute_object.h">
+    <ClInclude Include="src\gfx\vertex_array.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
     <ClInclude Include="src\gfx\gfx.h">

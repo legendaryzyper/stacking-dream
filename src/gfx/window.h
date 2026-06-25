@@ -3,7 +3,7 @@
 #include "gfx.h"
 #include "../util/util.h"
 
-typedef void (*FWindow)();
+typedef void (*FWindow)(void);
 
 typedef struct Window {
     GLFWwindow *handle;

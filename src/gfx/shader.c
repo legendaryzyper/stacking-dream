@@ -11,8 +11,8 @@ static GLuint compile(const char *path, GLenum type) {
     assert(len > 0);
     fseek(f, 0, SEEK_SET);
     text = calloc(1, len + 1);
-    text[len] = '\0';
     assert(text != NULL);
+    text[len] = '\0';
     fread(text, 1, len, f);
     assert(strlen(text) > 0);
     fclose(f);
@@ -29,19 +29,19 @@ static GLuint compile(const char *path, GLenum type) {
 
 void shader_bind(Shader *self) { glUseProgram(self->handle); }
 
-void shader_init(Shader *self, const char *vpath, const char *fpath) {
+void shader_init(Shader *self, const char *vertex_path, const char *fragment_path) {
     memset(self, 0, sizeof(Shader));
-    self->vhandle = compile(vpath, GL_VERTEX_SHADER);
-    self->fhandle = compile(fpath, GL_FRAGMENT_SHADER);
+    GLuint vertex_handle = compile(vertex_path, GL_VERTEX_SHADER);
+    GLuint fragment_handle = compile(fragment_path, GL_FRAGMENT_SHADER);
     self->handle = glCreateProgram();
 
-    glAttachShader(self->handle, self->vhandle);
-    glAttachShader(self->handle, self->fhandle);
+    glAttachShader(self->handle, vertex_handle);
+    glAttachShader(self->handle, fragment_handle);
 
     glLinkProgram(self->handle);
 
-    glDeleteShader(self->vhandle);
-    glDeleteShader(self->fhandle);
+    glDeleteShader(vertex_handle);
+    glDeleteShader(fragment_handle);
 }
 
 void shader_destroy(Shader *self) { glDeleteProgram(self->handle); }

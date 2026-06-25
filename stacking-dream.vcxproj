@@ -19,17 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\gfx\buffer_object.c" />
+    <ClCompile Include="src\gfx\buffer.c" />
     <ClCompile Include="src\gfx\shader.c" />
-    <ClCompile Include="src\gfx\vertex_attribute_object.c" />
+    <ClCompile Include="src\gfx\vertex_array.c" />
     <ClCompile Include="src\gfx\window.c" />
     <ClCompile Include="src\main.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\gfx\buffer_object.h" />
+    <ClInclude Include="src\gfx\buffer.h" />
     <ClInclude Include="src\gfx\gfx.h" />
     <ClInclude Include="src\gfx\shader.h" />
-    <ClInclude Include="src\gfx\vertex_attribute_object.h" />
+    <ClInclude Include="src\gfx\vertex_array.h" />
     <ClInclude Include="src\gfx\window.h" />
     <ClInclude Include="src\state.h" />
     <ClInclude Include="src\util\types.h" />

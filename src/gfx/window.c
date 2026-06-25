@@ -1,8 +1,4 @@
 #include "window.h"
-#include "../state.h"
-
-#include "vertex_attribute_object.h"
-#include "buffer_object.h"
 
 Window window;
 
@@ -41,14 +37,20 @@ void window_init(FWindow init, FWindow tick, FWindow update, FWindow render, FWi
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#if defined(__APPLE__) && defined(__MACH__)
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
-    window.handle = glfwCreateWindow(window.size.x, window.size.y, "game", NULL, NULL);
-
+    window.handle = glfwCreateWindow(window.size.x, window.size.y, "stacking dream", NULL, NULL);
     glfwMakeContextCurrent(window.handle);
 
     glfwSetFramebufferSizeCallback(window.handle, frame_buffer_size_callback);
 
     gladLoadGL();
+
+    int fb_width, fb_height;
+    glfwGetFramebufferSize(window.handle, &fb_width, &fb_height);
+    glViewport(0, 0, fb_width, fb_height);
 }
 
 void window_loop(void) {

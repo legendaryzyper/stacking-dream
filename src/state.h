@@ -5,11 +5,13 @@
 
 #include "gfx/window.h"
 #include "gfx/shader.h"
-#include "gfx/vertex_attribute_object.h"
-#include "gfx/buffer_object.h"
+#include "gfx/vertex_array.h"
+#include "gfx/buffer.h"
 
 typedef struct State {
     Shader shader;
+    VertexArray vao;
+    Buffer vbo;
 } State;
 
 extern State state;
