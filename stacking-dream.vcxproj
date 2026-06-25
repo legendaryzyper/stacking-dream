@@ -19,7 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\gfx\window.c" />
     <ClCompile Include="src\main.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\gfx\gfx.h" />
+    <ClInclude Include="src\gfx\window.h" />
+    <ClInclude Include="src\state.h" />
+    <ClInclude Include="src\util\types.h" />
+    <ClInclude Include="src\util\util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
