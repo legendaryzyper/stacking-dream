@@ -22,12 +22,24 @@
     <Filter Include="Header Files\util">
       <UniqueIdentifier>{a1961d99-aac3-46fd-9034-783cff725cf5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shader">
+      <UniqueIdentifier>{403286df-e9e5-4973-9bb4-3613ecf1b3a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\gfx\window.c">
+      <Filter>Source Files\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\shader.c">
+      <Filter>Source Files\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\buffer_object.c">
+      <Filter>Source Files\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\vertex_attribute_object.c">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,14 +50,31 @@
     <ClInclude Include="src\gfx\window.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="src\gfx\gfx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\util\util.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
     <ClInclude Include="src\util\types.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
+    <ClInclude Include="src\gfx\shader.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gfx\buffer_object.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gfx\vertex_attribute_object.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gfx\gfx.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\default.frag">
+      <Filter>Resource Files\shader</Filter>
+    </None>
+    <None Include="res\shaders\default.vert">
+      <Filter>Resource Files\shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
