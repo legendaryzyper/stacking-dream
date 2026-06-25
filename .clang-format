@@ -6,3 +6,4 @@ ColumnLimit: 110
 AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
 AllowShortBlocksOnASingleLine: true
+SortIncludes: false
