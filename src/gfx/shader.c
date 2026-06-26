@@ -36,6 +36,8 @@ void shader_uniform_int(Shader *self, const char *name, GLuint value) {
 }
 
 void shader_uniform_mat4(Shader *self, const char *name, mat4s mat) {
+    shader_bind(self);
+
     glUniformMatrix4fv(glGetUniformLocation(self->handle, (const GLchar *)name), 1, GL_FALSE,
                        (const GLfloat *)&mat.raw);
 }

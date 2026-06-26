@@ -54,16 +54,16 @@ static void init(void) {
 
 static void tick(void) {}
 
-static void update(void) {}
-
-static void render(void) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+static void update(void) {
     double crntTime = glfwGetTime();
-    if (crntTime - state.prevTime >= 1 / 60) {
+    if (crntTime - state.prevTime >= 1.0f / 60.0f) {
         state.rot += 0.5f;
         state.prevTime = crntTime;
     }
+}
+
+static void render(void) {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     mat4s model = glms_mat4_identity();
     mat4s view = glms_mat4_identity();
