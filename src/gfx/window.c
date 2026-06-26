@@ -8,15 +8,15 @@ static void frame_buffer_size_callback(GLFWwindow *handle, int width, int height
     window.size = (ivec2s){{width, height}};
 }
 
-static void init(void) { window.init(); }
+static void global_init(void) { window.init(); }
 
-static void tick(void) { window.tick(); }
+static void global_tick(void) { window.tick(); }
 
-static void update(void) { window.update(); }
+static void global_update(void) { window.update(); }
 
-static void render(void) { window.render(); }
+static void global_render(void) { window.render(); }
 
-static void destroy(void) {
+static void global_destroy(void) {
     window.destroy();
 
     glfwDestroyWindow(window.handle);
@@ -45,6 +45,8 @@ void window_init(FWindow init, FWindow tick, FWindow update, FWindow render, FWi
     
     glfwMakeContextCurrent(window.handle);
 
+    glfwSwapInterval(1);
+
     glfwSetFramebufferSizeCallback(window.handle, frame_buffer_size_callback);
 
     gladLoadGL();
@@ -53,17 +55,19 @@ void window_init(FWindow init, FWindow tick, FWindow update, FWindow render, FWi
 }
 
 void window_loop(void) {
-    init();
+    global_init();
 
     while (!glfwWindowShouldClose(window.handle)) {
-        // tick();
+        glfwPollEvents();
 
-        update();
-        render();
+        // TODO
+        // global_tick();
+
+        global_update();
+        global_render();
 
         glfwSwapBuffers(window.handle);
-        glfwPollEvents();
     }
 
-    destroy();
+    global_destroy();
 }

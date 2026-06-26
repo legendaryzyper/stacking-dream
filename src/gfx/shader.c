@@ -3,7 +3,7 @@
 static GLuint compile(const char *path, GLenum type) {
     FILE *f;
     char *text;
-    s32 len;
+    long len;
 
     f = fopen(path, "rb");
     fseek(f, 0, SEEK_END);
@@ -29,8 +29,13 @@ static GLuint compile(const char *path, GLenum type) {
 
 void shader_bind(Shader *self) { glUseProgram(self->handle); }
 
-void shader_uniform(Shader *self, const char *name, GLfloat value) {
-    glUniform1f(glGetUniformLocation(self->handle, name), value);
+void shader_uniform_texture(Shader *self, const char *name, Texture *texture) {
+    glActiveTexture(GL_TEXTURE0 + texture->slot);
+
+    shader_bind(self);
+    texture_bind(texture);
+
+    glUniform1i(glGetUniformLocation(self->handle, (const GLchar *)name), texture->slot);
 }
 
 void shader_init(Shader *self, const char *vertex_path, const char *fragment_path) {

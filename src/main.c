@@ -1,26 +1,27 @@
 #include "state.h"
+#include "gfx/window.h"
 
 State state;
 
-static void init(void) {
+static void global_init(void) {
     shader_init(&state.shader, "res/shaders/default.vert", "res/shaders/default.frag");
+    texture_init(&state.texture, GL_TEXTURE_2D, 0, "res/textures/pop_cat.png");
+    shader_uniform_texture(&state.shader, "tex", &state.texture);
 
     glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     f32 vertices[] = {
-        //               COORDINATES                  /     COLORS           //
-        -0.5f,  -0.5f * (float)sqrt(3) * 1 / 3, 0.0f, 0.8f, 0.3f,  0.02f, // Lower left corner
-        0.5f,   -0.5f * (float)sqrt(3) * 1 / 3, 0.0f, 0.8f, 0.3f,  0.02f, // Lower right corner
-        0.0f,   0.5f * (float)sqrt(3) * 2 / 3,  0.0f, 1.0f, 0.6f,  0.32f, // Upper corner
-        -0.25f, 0.5f * (float)sqrt(3) * 1 / 6,  0.0f, 0.9f, 0.45f, 0.17f, // Inner left
-        0.25f,  0.5f * (float)sqrt(3) * 1 / 6,  0.0f, 0.9f, 0.45f, 0.17f, // Inner right
-        0.0f,   -0.5f * (float)sqrt(3) * 1 / 3, 0.0f, 0.8f, 0.3f,  0.02f  // Inner down
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // Lower left corner
+        -0.5f, 0.5f,  0.0f, 0.0f, 1.0f, // Upper left corner
+        0.5f,  0.5f,  0.0f, 1.0f, 1.0f, // Upper right corner
+        0.5f,  -0.5f, 0.0f, 1.0f, 0.0f  // Lower right corner
     };
 
     u32 indices[] = {
-        0, 3, 5, // Lower left triangle
-        3, 2, 4, // Upper triangle
-        5, 4, 1  // Lower right triangle
+        0, 2, 1, // Upper triangle
+        0, 3, 2  // Lower triangle
     };
 
     buffer_init(&state.vbo, GL_ARRAY_BUFFER);
@@ -28,33 +29,32 @@ static void init(void) {
     vertex_array_init(&state.vao);
 
     buffer_buffer_data(&state.vbo, vertices, sizeof(vertices));
-    vertex_array_attrib(&state.vao, &state.vbo, 0, 3, GL_FLOAT, 6 * sizeof(f32), 0);   
-    vertex_array_attrib(&state.vao, &state.vbo, 1, 3, GL_FLOAT, 6 * sizeof(f32), 3 * sizeof(f32));
-
+    vertex_array_attrib(&state.vao, &state.vbo, 0, 3, GL_FLOAT, 5 * sizeof(f32), 0);   
+    vertex_array_attrib(&state.vao, &state.vbo, 1, 2, GL_FLOAT, 5 * sizeof(f32), 3 * sizeof(f32));
+    
     buffer_buffer_data(&state.ebo, indices, sizeof(indices));
 }
 
-static void tick(void) {}
+static void global_tick(void) {}
 
-static void update(void) {}
+static void global_update(void) {}
 
-static void render(void) {
+static void global_render(void) {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    shader_bind(&state.shader);
-    shader_uniform(&state.shader, "scale", 0.5f);
-
-    glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 }
 
-static void destroy(void) {
+static void global_destroy(void) {
     shader_destroy(&state.shader);
+    texture_destroy(&state.texture);
     buffer_destroy(&state.vbo);
+    buffer_destroy(&state.ebo);
     vertex_array_destroy(&state.vao);
 }
 
 int main(void) {
-    window_init(init, tick, update, render, destroy);
+    window_init(global_init, global_tick, global_update, global_render, global_destroy);
     window_loop();
 
     return 0;

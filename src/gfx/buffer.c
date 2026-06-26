@@ -8,7 +8,7 @@ void buffer_buffer_data(Buffer *self, void *data, GLsizeiptr size) {
     glBufferData(self->type, size, data, GL_STATIC_DRAW);
 }
 
-void buffer_init(Buffer *self, GLint type) {
+void buffer_init(Buffer *self, GLenum type) {
     memset(self, 0, sizeof(Buffer));
     self->type = type;
     glGenBuffers(1, &self->handle);
