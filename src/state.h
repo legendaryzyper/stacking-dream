@@ -13,6 +13,8 @@ typedef struct State {
     VertexArray vao;
     Buffer vbo, ebo;
     Texture texture;
+    f32 rot;
+    f64 prevTime;
 } State;
 
 extern State state;

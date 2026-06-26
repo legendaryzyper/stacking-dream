@@ -29,13 +29,15 @@ static GLuint compile(const char *path, GLenum type) {
 
 void shader_bind(Shader *self) { glUseProgram(self->handle); }
 
-void shader_uniform_texture(Shader *self, const char *name, Texture *texture) {
-    glActiveTexture(GL_TEXTURE0 + texture->slot);
-
+void shader_uniform_int(Shader *self, const char *name, GLuint value) {
     shader_bind(self);
-    texture_bind(texture);
 
-    glUniform1i(glGetUniformLocation(self->handle, (const GLchar *)name), texture->slot);
+    glUniform1i(glGetUniformLocation(self->handle, (const GLchar *)name), value);
+}
+
+void shader_uniform_mat4(Shader *self, const char *name, mat4s mat) {
+    glUniformMatrix4fv(glGetUniformLocation(self->handle, (const GLchar *)name), 1, GL_FALSE,
+                       (const GLfloat *)&mat.raw);
 }
 
 void shader_init(Shader *self, const char *vertex_path, const char *fragment_path) {

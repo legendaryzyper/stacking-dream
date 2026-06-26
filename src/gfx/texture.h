@@ -10,6 +10,7 @@ typedef struct Texture {
     ivec2s size;
 } Texture;
 
+void texture_system_init(void);
 void texture_bind(Texture *self);
 void texture_init(Texture *self, GLenum type, u32 slot, const char *path);
 void texture_destroy(Texture *self);
