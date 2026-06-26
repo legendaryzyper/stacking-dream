@@ -29,6 +29,10 @@ static GLuint compile(const char *path, GLenum type) {
 
 void shader_bind(Shader *self) { glUseProgram(self->handle); }
 
+void shader_uniform(Shader *self, const char *name, GLfloat value) {
+    glUniform1f(glGetUniformLocation(self->handle, name), value);
+}
+
 void shader_init(Shader *self, const char *vertex_path, const char *fragment_path) {
     memset(self, 0, sizeof(Shader));
     GLuint vertex_handle = compile(vertex_path, GL_VERTEX_SHADER);
