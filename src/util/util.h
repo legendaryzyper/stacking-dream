@@ -10,3 +10,5 @@
 #include <cglm/struct.h>
 
 #include "types.h"
+#include "math.h"
+#include "time.h"

@@ -25,6 +25,12 @@
     <Filter Include="Resource Files\shader">
       <UniqueIdentifier>{403286df-e9e5-4973-9bb4-3613ecf1b3a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\entity">
+      <UniqueIdentifier>{e0460c7f-b116-4203-8a97-89ea31b7c30e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\entity">
+      <UniqueIdentifier>{f78698fe-4885-4b72-b3cb-6269fe903e36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
@@ -44,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="src\gfx\texture.c">
       <Filter>Source Files\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\camera.c">
+      <Filter>Source Files\entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="src\gfx\texture.h">
       <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\math.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\camera.h">
+      <Filter>Header Files\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\time.h">
+      <Filter>Header Files\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
