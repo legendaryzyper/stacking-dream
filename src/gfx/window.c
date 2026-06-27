@@ -151,7 +151,7 @@ void window_loop(void) {
             printf("FPS: %" PRIu64 " | TPS: %" PRIu64 "\n", window.fps, window.tps);
         }
 
-       /* const u64 NS_PER_TICK = (NS_PER_SECOND / window.tickrate);
+        const u64 NS_PER_TICK = (NS_PER_SECOND / window.tickrate);
         u64 tick_time = window.frame_delta + window.tick_remainder;
 
         while (tick_time > NS_PER_TICK) {
@@ -159,7 +159,7 @@ void window_loop(void) {
             tick_time -= NS_PER_TICK;
         }
 
-        window.tick_remainder = max(tick_time, 0);*/
+        window.tick_remainder = max(tick_time, 0);
 
         global_update();
         global_render();

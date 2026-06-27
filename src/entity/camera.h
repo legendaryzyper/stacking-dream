@@ -5,10 +5,11 @@
 
 typedef struct Camera {
     vec3s position, direction, right, up;
-    f32 fov, aspect, znear, zfar, pitch, yaw;
+    f32 fov, aspect, znear, zfar, pitch, yaw, speed;
     mat4s view, projection;
 } Camera;
 
 void camera_init(Camera *self);
+void camera_tick(Camera *self);
 void camera_update(Camera *self);
 void camera_destroy(Camera *self);

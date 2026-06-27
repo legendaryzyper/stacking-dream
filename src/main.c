@@ -11,10 +11,12 @@ static void init(void) {
 
     camera_init(&state.camera);
 
+    state.camera.position = (vec3s){{0.0f, 0.0f, 2.0f}};
+    state.camera.speed = 5.0f;
+
     glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -40,7 +42,7 @@ static void init(void) {
     state.prevTime = glfwGetTime();
 }
 
-static void tick(void) {}
+static void tick(void) { camera_tick(&state.camera); }
 
 static void update(void) {
     double crntTime = glfwGetTime();
@@ -49,11 +51,6 @@ static void update(void) {
         state.prevTime = crntTime;
     }
 
-    state.camera.yaw +=
-        window.mouse.delta.x * window.mouse.sensitivity * 0.001f;
-    state.camera.pitch -=
-        window.mouse.delta.y * window.mouse.sensitivity * 0.001f;
-
     camera_update(&state.camera);
 }
 
@@ -61,8 +58,7 @@ static void render(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     shader_uniform_mat4(&state.shader, "model",
-                        glms_rotate(glms_translate(glms_mat4_identity(), (vec3s){{0.0f, -0.5f, -2.0f}}),
-                                    glm_rad(state.rot), (vec3s){{0.0f, 1.0f, 0.0f}}));
+                        glms_rotate(glms_mat4_identity(), glm_rad(state.rot), (vec3s){{0.0f, 1.0f, 0.0f}}));
     shader_uniform_mat4(&state.shader, "view", state.camera.view);
     shader_uniform_mat4(&state.shader, "proj", state.camera.projection);
 
