@@ -10,23 +10,25 @@ void mesh_init(Mesh *self, void *vertices, GLsizeiptr v_size, void *indices, GLs
     buffer_init(&self->VBO, GL_ARRAY_BUFFER, vertices, v_size);
     buffer_init(&self->EBO, GL_ELEMENT_ARRAY_BUFFER, indices, i_size);
     self->indices_count = i_count;
+    self->texture = texture;
 
     GL_LAYOUT_LOCATION(0, 3, GL_FLOAT, 5 * sizeof(f32), 0);
     GL_LAYOUT_LOCATION(1, 2, GL_FLOAT, 5 * sizeof(f32), 3 * sizeof(f32));
-
-    shader_uniform_int(&state.shader, "tex", texture.slot);
 }
 
 void mesh_render(Mesh *self) {
     shader_uniform_mat4(&state.shader, "model",
                         glms_rotate(glms_mat4_identity(), glm_rad(state.rot), (vec3s){{0.0f, 1.0f, 0.0f}}));
 
+    shader_uniform_int(&state.shader, "tex", self->texture.slot);
+    texture_bind(&self->texture);
     vertex_array_bind(&self->VAO);
 
     glDrawElements(GL_TRIANGLES, self->indices_count, GL_UNSIGNED_INT, NULL);
 }
 
 void mesh_destroy(Mesh *self) {
+    texture_destroy(&self->texture);
     vertex_array_destroy(&self->VAO);
     buffer_destroy(&self->VBO);
     buffer_destroy(&self->EBO);
