@@ -6,25 +6,25 @@
 typedef void (*FWindow)(void);
 
 typedef struct Button {
-    bool down, pressed, last;
+    bool down, pressed, pressed_event;
 } Button;
 
 typedef struct Mouse {
-    Button buttons[GLFW_MOUSE_BUTTON_LAST];
+    Button buttons[GLFW_MOUSE_BUTTON_LAST + 1];
     vec2s position, delta;
     f32 sensitivity;
     bool not_first;
 } Mouse;
 
 typedef struct Keyboard {
-    Button keys[GLFW_KEY_LAST];
+    Button keys[GLFW_KEY_LAST + 1];
 } Keyboard;
 
 typedef struct Window {
     GLFWwindow *handle;
     Keyboard keyboard;
     Mouse mouse;
-    FWindow init, tick, update, render, destroy;
+    FWindow init, input, tick, update, render, destroy;
     ivec2s size;
     u64 last_second;
     u64 frames, fps, last_frame, frame_delta;
@@ -34,5 +34,5 @@ typedef struct Window {
 
 extern Window window;
 
-void window_init(FWindow init, FWindow tick, FWindow update, FWindow render, FWindow destroy);
+void window_init(FWindow init, FWindow input, FWindow tick, FWindow update, FWindow render, FWindow destroy);
 void window_loop(void);

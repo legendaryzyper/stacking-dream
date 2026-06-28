@@ -14,6 +14,7 @@ static void mouse_button_callback(GLFWwindow *handle, int button, int action, in
     switch (action) {
     case GLFW_PRESS:
         window.mouse.buttons[button].down = true;
+        window.mouse.buttons[button].pressed_event = true;
         break;
     case GLFW_RELEASE:
         window.mouse.buttons[button].down = false;
@@ -29,6 +30,7 @@ static void key_callback(GLFWwindow *handle, int key, int scancode, int action, 
     switch (action) {
     case GLFW_PRESS:
         window.keyboard.keys[key].down = true;
+        window.keyboard.keys[key].pressed_event = true;
         break;
     case GLFW_RELEASE:
         window.keyboard.keys[key].down = false;
@@ -49,20 +51,23 @@ static void cursor_pos_callback(GLFWwindow *handle, double xpos, double ypos) {
         window.mouse.not_first = true;
     }
 
-    window.mouse.delta.x = clamp(window.mouse.delta.x, -100.0f, 100.0f);
-    window.mouse.delta.y = clamp(window.mouse.delta.y, -100.0f, 100.0f);
-
     window.mouse.position = pos;
 }
 
 static void button_array_tick(u16 last, Button *buttons) {
-    for (u16 idx = 0; idx < last; idx++) {
-        buttons[idx].pressed = buttons[idx].down && !buttons[idx].last;
-        buttons[idx].last = buttons[idx].down;
+    for (u16 idx = 0; idx <= last; idx++) {
+        buttons[idx].pressed = buttons[idx].pressed_event;
+        buttons[idx].pressed_event = false;
     }
 }
 
 static void global_init(void) { window.init(); }
+
+static void global_input(void) {
+    window.input();
+
+    window.mouse.delta = GLMS_VEC2_ZERO;
+}
 
 static void global_tick(void) {
     window.ticks++;
@@ -73,11 +78,7 @@ static void global_tick(void) {
     window.tick();
 }
 
-static void global_update(void) {
-    window.update();
-
-    window.mouse.delta = GLMS_VEC2_ZERO;
-}
+static void global_update(void) { window.update(); }
 
 static void global_render(void) {
     window.frames++;
@@ -92,8 +93,9 @@ static void global_destroy(void) {
     glfwTerminate();
 }
 
-void window_init(FWindow init, FWindow tick, FWindow update, FWindow render, FWindow destroy) {
+void window_init(FWindow init, FWindow input, FWindow tick, FWindow update, FWindow render, FWindow destroy) {
     window.init = init;
+    window.input = input;
     window.tick = tick;
     window.update = update;
     window.render = render;
@@ -133,12 +135,15 @@ void window_init(FWindow init, FWindow tick, FWindow update, FWindow render, FWi
 void window_loop(void) {
     global_init();
 
+    const u64 NS_PER_TICK = (NS_PER_SECOND / window.tickrate);
+
     while (!glfwWindowShouldClose(window.handle)) {
         glfwPollEvents();
 
         const u64 now = NOW();
 
         window.frame_delta = now - window.last_frame;
+        window.frame_delta = clamp(window.frame_delta, 0, NS_PER_SECOND / 4ULL);
         window.last_frame = now;
 
         if (now - window.last_second > NS_PER_SECOND) {
@@ -146,20 +151,21 @@ void window_loop(void) {
             window.tps = window.ticks;
             window.frames = 0;
             window.ticks = 0;
-            window.last_second = now;
+            window.last_second += NS_PER_SECOND;
 
             printf("FPS: %" PRIu64 " | TPS: %" PRIu64 "\n", window.fps, window.tps);
         }
 
-        const u64 NS_PER_TICK = (NS_PER_SECOND / window.tickrate);
+        global_input();
+
         u64 tick_time = window.frame_delta + window.tick_remainder;
 
-        while (tick_time > NS_PER_TICK) {
+        while (tick_time >= NS_PER_TICK) {
             global_tick();
             tick_time -= NS_PER_TICK;
         }
 
-        window.tick_remainder = max(tick_time, 0);
+        window.tick_remainder = tick_time;
 
         global_update();
         global_render();

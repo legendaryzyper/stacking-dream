@@ -4,19 +4,20 @@
 State state;
 
 static void init(void) {
-    shader_init(&state.shader, "res/shaders/default.vert", "res/shaders/default.frag");
     texture_system_init();
-    texture_init(&state.texture, GL_TEXTURE_2D, 0, "res/textures/brick.png");
-    shader_uniform_int(&state.shader, "tex", state.texture.slot);
+    shader_init(&state.shader, "res/shaders/default.vert", "res/shaders/default.frag");
+    player_init(&state.player);
 
-    camera_init(&state.camera);
-
-    state.camera.position = (vec3s){{0.0f, 0.0f, 2.0f}};
-    state.camera.speed = 5.0f;
+    state.player.position = (vec3s){{0.0f, 0.0f, 2.0f}};
+    state.player.speed = 2.0f;
 
     glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -24,58 +25,44 @@ static void init(void) {
     f32 vertices[] = {-0.5f, 0.0f, 0.5f, 0.0f, 0.0f, -0.5f, 0.0f, -0.5f, 5.0f, 0.0f, 0.5f, 0.0f, -0.5f,
                       0.0f,  0.0f, 0.5f, 0.0f, 0.5f, 5.0f,  0.0f, 0.0f,  0.8f, 0.0f, 2.5f, 5.0f};
 
-    u32 indices[] = {0, 1, 2, 0, 2, 3, 0, 1, 4, 1, 2, 4, 2, 3, 4, 3, 0, 4};
+    u32 indices[] = {0, 1, 2, 0, 2, 3, 1, 0, 4, 2, 1, 4, 3, 2, 4, 0, 3, 4};
 
-    vertex_array_init(&state.vao);
-    buffer_init(&state.vbo, GL_ARRAY_BUFFER);
-    buffer_init(&state.ebo, GL_ELEMENT_ARRAY_BUFFER);
+    Texture brick;
+    texture_init(&brick, GL_TEXTURE_2D, 0, "res/textures/brick.png");
 
-    vertex_array_bind(&state.vao);
-
-    buffer_buffer_data(&state.vbo, vertices, sizeof(vertices));
-    GL_LAYOUT_LOCATION(0, 3, GL_FLOAT, 5 * sizeof(f32), 0);
-    GL_LAYOUT_LOCATION(1, 2, GL_FLOAT, 5 * sizeof(f32), 3 * sizeof(f32));
-
-    buffer_buffer_data(&state.ebo, indices, sizeof(indices));
+    mesh_init(&state.mesh, vertices, sizeof(vertices), indices, sizeof(indices),
+              sizeof(indices) / sizeof(u32), brick);
 
     state.rot = 0.0f;
-    state.prevTime = glfwGetTime();
 }
 
-static void tick(void) { camera_tick(&state.camera); }
+static void input(void) { player_input(&state.player); }
 
-static void update(void) {
-    double crntTime = glfwGetTime();
-    if (crntTime - state.prevTime >= 1.0f / 60.0f) {
-        state.rot += 0.5f;
-        state.prevTime = crntTime;
-    }
+static void tick(void) {
+    player_tick(&state.player);
 
-    camera_update(&state.camera);
+    state.rot += 0.5f;
 }
+
+static void update(void) { player_update(&state.player); }
 
 static void render(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    shader_uniform_mat4(&state.shader, "model",
-                        glms_rotate(glms_mat4_identity(), glm_rad(state.rot), (vec3s){{0.0f, 1.0f, 0.0f}}));
-    shader_uniform_mat4(&state.shader, "view", state.camera.view);
-    shader_uniform_mat4(&state.shader, "proj", state.camera.projection);
+    shader_uniform_mat4(&state.shader, "view", state.player.camera.view);
+    shader_uniform_mat4(&state.shader, "proj", state.player.camera.projection);
 
-    glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, NULL);
+    mesh_render(&state.mesh);
 }
 
 static void destroy(void) {
     shader_destroy(&state.shader);
-    texture_destroy(&state.texture);
-    buffer_destroy(&state.vbo);
-    buffer_destroy(&state.ebo);
-    vertex_array_destroy(&state.vao);
-    camera_destroy(&state.camera);
+    player_destroy(&state.player);
+    mesh_destroy(&state.mesh);
 }
 
 int main(void) {
-    window_init(init, tick, update, render, destroy);
+    window_init(init, input, tick, update, render, destroy);
     window_loop();
 
     return 0;

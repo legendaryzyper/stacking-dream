@@ -31,6 +31,12 @@
     <Filter Include="Header Files\entity">
       <UniqueIdentifier>{f78698fe-4885-4b72-b3cb-6269fe903e36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\world">
+      <UniqueIdentifier>{ee0ff49a-af2e-482b-8624-46db001cee59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\world">
+      <UniqueIdentifier>{b8d73eca-850c-41d2-9e0e-a689119f2929}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c">
@@ -53,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="src\entity\camera.c">
       <Filter>Source Files\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entity\player.c">
+      <Filter>Source Files\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\world\mesh.c">
+      <Filter>Source Files\world</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +103,15 @@
     </ClInclude>
     <ClInclude Include="src\util\time.h">
       <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity\player.h">
+      <Filter>Header Files\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\world.h">
+      <Filter>Header Files\world</Filter>
+    </ClInclude>
+    <ClInclude Include="src\world\mesh.h">
+      <Filter>Header Files\world</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

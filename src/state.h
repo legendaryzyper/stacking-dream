@@ -4,19 +4,14 @@
 #include "util/util.h"
 
 #include "gfx/shader.h"
-#include "gfx/vertex_array.h"
-#include "gfx/buffer.h"
-#include "gfx/texture.h"
-#include "entity/camera.h"
+#include "world/mesh.h"
+#include "entity/player.h"
 
 typedef struct State {
     Shader shader;
-    VertexArray vao;
-    Buffer vbo, ebo;
-    Texture texture;
-    Camera camera;
+    Mesh mesh;
+    Player player;
     f32 rot;
-    f64 prevTime;
 } State;
 
 extern State state;

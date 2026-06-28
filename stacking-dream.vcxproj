@@ -20,15 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\entity\camera.c" />
+    <ClCompile Include="src\entity\player.c" />
     <ClCompile Include="src\gfx\buffer.c" />
     <ClCompile Include="src\gfx\shader.c" />
     <ClCompile Include="src\gfx\texture.c" />
     <ClCompile Include="src\gfx\vertex_array.c" />
     <ClCompile Include="src\gfx\window.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\world\mesh.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity\camera.h" />
+    <ClInclude Include="src\entity\player.h" />
     <ClInclude Include="src\gfx\buffer.h" />
     <ClInclude Include="src\gfx\gfx.h" />
     <ClInclude Include="src\gfx\shader.h" />
@@ -40,6 +43,8 @@
     <ClInclude Include="src\util\time.h" />
     <ClInclude Include="src\util\types.h" />
     <ClInclude Include="src\util\util.h" />
+    <ClInclude Include="src\world\mesh.h" />
+    <ClInclude Include="src\world\world.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\default.frag" />
