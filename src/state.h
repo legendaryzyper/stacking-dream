@@ -4,7 +4,7 @@
 #include "util/util.h"
 
 #include "gfx/shader.h"
-#include "world/mesh.h"
+#include "gfx/mesh.h"
 #include "entity/player.h"
 
 typedef struct State {

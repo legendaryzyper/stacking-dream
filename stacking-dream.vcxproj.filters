@@ -63,8 +63,8 @@
     <ClCompile Include="src\entity\player.c">
       <Filter>Source Files\entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\world\mesh.c">
-      <Filter>Source Files\world</Filter>
+    <ClCompile Include="src\gfx\mesh.c">
+      <Filter>Source Files\gfx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +110,8 @@
     <ClInclude Include="src\world\world.h">
       <Filter>Header Files\world</Filter>
     </ClInclude>
-    <ClInclude Include="src\world\mesh.h">
-      <Filter>Header Files\world</Filter>
+    <ClInclude Include="src\gfx\mesh.h">
+      <Filter>Header Files\gfx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

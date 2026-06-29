@@ -22,16 +22,21 @@ static void init(void) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    f32 vertices[] = {-0.5f, 0.0f, 0.5f, 0.0f, 0.0f, -0.5f, 0.0f, -0.5f, 5.0f, 0.0f, 0.5f, 0.0f, -0.5f,
+    f32 vertices_i[] = {-0.5f, 0.0f, 0.5f, 0.0f, 0.0f, -0.5f, 0.0f, -0.5f, 5.0f, 0.0f, 0.5f, 0.0f, -0.5f,
                       0.0f,  0.0f, 0.5f, 0.0f, 0.5f, 5.0f,  0.0f, 0.0f,  0.8f, 0.0f, 2.5f, 5.0f};
+    f32 *vertices = NULL;
+    arrsetlen(vertices, sizeof(vertices_i) / sizeof(f32));
+    memcpy(vertices, vertices_i, sizeof(vertices_i));
 
-    u32 indices[] = {0, 1, 2, 0, 2, 3, 1, 0, 4, 2, 1, 4, 3, 2, 4, 0, 3, 4};
+    u32 indices_i[] = {0, 1, 2, 0, 2, 3, 1, 0, 4, 2, 1, 4, 3, 2, 4, 0, 3, 4};
+    u32 *indices = NULL;
+    arrsetlen(indices, sizeof(indices_i) / sizeof(u32));
+    memcpy(indices, indices_i, sizeof(indices_i));
 
     Texture brick;
     texture_init(&brick, GL_TEXTURE_2D, 0, "res/textures/brick.png");
 
-    mesh_init(&state.mesh, vertices, sizeof(vertices), indices, sizeof(indices),
-              sizeof(indices) / sizeof(u32), brick);
+    mesh_init(&state.mesh, vertices, indices, &brick);
 
     state.rot = 0.0f;
 }
