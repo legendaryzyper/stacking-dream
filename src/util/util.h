@@ -9,6 +9,8 @@
 #include <cglm/cglm.h>
 #include <cglm/struct.h>
 
+#include <stb_ds.h>
+
 #include "types.h"
 #include "math.h"
 #include "time.h"

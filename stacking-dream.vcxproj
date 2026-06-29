@@ -143,13 +143,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\stb;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include;$(ProjectDir)lib\cglm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\stb\include;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include;$(ProjectDir)lib\cglm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src\Release;$(ProjectDir)lib\cglm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>cglm.lib;glfw3.lib;glad.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\stb\src;$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src\Release;$(ProjectDir)lib\cglm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cglm.lib;glfw3.lib;glad.obj;stb.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
@@ -164,13 +164,13 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\stb;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include;$(ProjectDir)lib\cglm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\stb\include;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include;$(ProjectDir)lib\cglm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src\Release;$(ProjectDir)lib\cglm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>cglm.lib;glfw3.lib;glad.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\stb\src;$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src\Release;$(ProjectDir)lib\cglm\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cglm.lib;glfw3.lib;glad.obj;stb.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>

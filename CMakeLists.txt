@@ -8,7 +8,9 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_library(glad_obj OBJECT lib/glad/src/glad.c)
+add_library(stb_obj OBJECT lib/stb/src/stb.c)
 target_include_directories(glad_obj PRIVATE lib/glad/include)
+target_include_directories(stb_obj PRIVATE lib/stb/include)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -28,11 +30,12 @@ target_include_directories(stacking-dream PRIVATE
     lib/glad/include
     lib/cglm/include
     lib/glfw/include
-    lib/stb
+    lib/stb/include
 )
 
 target_link_libraries(stacking-dream PRIVATE
     glad_obj
+    stb_obj
     glfw
     m
     ${CMAKE_DL_LIBS}
