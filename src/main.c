@@ -1,3 +1,4 @@
+#include "ecs/ecs.h"
 #include "state.h"
 #include "gfx/window.h"
 
@@ -23,7 +24,7 @@ static void init(void) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     f32 vertices_i[] = {-0.5f, 0.0f, 0.5f, 0.0f, 0.0f, -0.5f, 0.0f, -0.5f, 5.0f, 0.0f, 0.5f, 0.0f, -0.5f,
-                      0.0f,  0.0f, 0.5f, 0.0f, 0.5f, 5.0f,  0.0f, 0.0f,  0.8f, 0.0f, 2.5f, 5.0f};
+                        0.0f,  0.0f, 0.5f, 0.0f, 0.5f, 5.0f,  0.0f, 0.0f,  0.8f, 0.0f, 2.5f, 5.0f};
     f32 *vertices = NULL;
     arrsetlen(vertices, sizeof(vertices_i) / sizeof(f32));
     memcpy(vertices, vertices_i, sizeof(vertices_i));
@@ -35,10 +36,20 @@ static void init(void) {
 
     Texture brick;
     texture_init(&brick, GL_TEXTURE_2D, 0, "res/textures/brick.png");
-
     mesh_init(&state.mesh, vertices, indices, &brick);
 
-    state.rot = 0.0f;
+    // could create another function in world call init_entity no that better in world ?
+    Entity *e = spawn_entity(&state.world);
+    e->transform.position = (vec3s){{0, 0, 0}};
+    e->mesh = &state.mesh;
+
+    Entity *e1 = spawn_entity(&state.world);
+    e1->transform.position = (vec3s){{2, 2, 2}};
+    e1->mesh = &state.mesh;
+
+    Entity *e2 = spawn_entity(&state.world);
+    e2->transform.position = (vec3s){{-2, -2, -2}};
+    e2->mesh = &state.mesh;
 }
 
 static void input(void) { player_input(&state.player); }
@@ -46,7 +57,7 @@ static void input(void) { player_input(&state.player); }
 static void tick(void) {
     player_tick(&state.player);
 
-    state.rot += 0.5f;
+    ecs_tick(&state.world);
 }
 
 static void update(void) { player_update(&state.player); }
@@ -57,7 +68,7 @@ static void render(void) {
     shader_uniform_mat4(&state.shader, "view", state.player.camera.view);
     shader_uniform_mat4(&state.shader, "proj", state.player.camera.projection);
 
-    mesh_render(&state.mesh);
+    ecs_render(&state.world);
 }
 
 static void destroy(void) {

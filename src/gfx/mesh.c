@@ -17,9 +17,6 @@ void mesh_init(Mesh *self, f32 *vertices, u32 *indices, Texture *texture) {
 }
 
 void mesh_render(Mesh *self) {
-    shader_uniform_mat4(&state.shader, "model",
-                        glms_rotate(glms_mat4_identity(), glm_rad(state.rot), (vec3s){{0.0f, 1.0f, 0.0f}}));
-
     shader_uniform_int(&state.shader, "tex", self->texture->slot);
     texture_bind(self->texture);
     vertex_array_bind(&self->VAO);
