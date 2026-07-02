@@ -3,27 +3,30 @@
 #include "../world/world.h"
 #include "../state.h"
 
-void ecs_init(World *w) { w->entities_count = 0; }
+void ecs_init(World *world) { world->entities_count = 0; }
 
-void ecs_input(World *w) {}
+void ecs_input(World *world) {}
 
-void ecs_tick(World *w) {
+void ecs_tick(World *world) {
     float arr[3] = {0.2f, 0.3f, 0.5f};
-    for (u32 i = 0; i < w->entities_count; i++) {
-        Entity *e = &w->entities[i];
+    for (u32 i = 0; i < world->entities_count; i++) {
+        Entity *e = &world->entities[i];
+        if (!(e->mask & COMPONENT_TRANSFORM)) continue;
         e->transform.rotation.y += arr[i];
         e->transform.rotation.x += arr[i];
     }
 }
 
-void ecs_update(World *w) {}
+void ecs_update(World *world) {}
 
-void ecs_destroy(World *w) {}
+void ecs_destroy(World *world) {}
 
-void ecs_render(World *w) {
-    for (u32 i = 0; i < w->entities_count; i++) {
+void ecs_render(World *world) {
+    for (u32 i = 0; i < world->entities_count; i++) {
+        Entity *e = &world->entities[i];
 
-        TransformComponent *t = &w->entities[i].transform;
+        if ((e->mask) != (COMPONENT_TRANSFORM | COMPONENT_MESH)) continue;
+        TransformComponent *t = &e->transform;
         mat4s model = glms_mat4_identity();
         model = glms_translate(model, t->position);
         model = glms_rotate(model, glm_rad(t->rotation.x), (vec3s){{1, 0, 0}});
@@ -32,18 +35,18 @@ void ecs_render(World *w) {
         model = glms_scale(model, t->scale);
 
         shader_uniform_mat4(&state.shader, "model", model);
-        mesh_render(w->entities[i].mesh);
+        mesh_render(e->mesh);
     }
 }
 
-Entity *spawn_entity(World *w) {
-    u32 idx = w->entities_count;
-    w->entities_count++;
+Entity *ecs_spawn_entity(World *world) {
+    u32 idx = world->entities_count;
+    world->entities_count++;
 
-    w->entities[idx].mask = 0;
-    w->entities[idx].transform = (TransformComponent){0};
-    w->entities[idx].transform.scale = (vec3s){{1, 1, 1}};
-    w->entities[idx].mesh = NULL;
+    world->entities[idx].mask = 0;
+    world->entities[idx].transform = (TransformComponent){0};
+    world->entities[idx].transform.scale = (vec3s){{1, 1, 1}};
+    world->entities[idx].mesh = NULL;
 
-    return &w->entities[idx];
+    return &world->entities[idx];
 }

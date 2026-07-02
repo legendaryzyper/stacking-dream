@@ -39,15 +39,18 @@ static void init(void) {
     mesh_init(&state.mesh, vertices, indices, &brick);
 
     // could create another function in world call init_entity no that better in world ?
-    Entity *e = spawn_entity(&state.world);
+    Entity *e = ecs_spawn_entity(&state.world);
+    e->mask = COMPONENT_TRANSFORM | COMPONENT_MESH;
     e->transform.position = (vec3s){{0, 0, 0}};
     e->mesh = &state.mesh;
 
-    Entity *e1 = spawn_entity(&state.world);
+    Entity *e1 = ecs_spawn_entity(&state.world);
+    e1->mask = COMPONENT_TRANSFORM | COMPONENT_MESH;
     e1->transform.position = (vec3s){{2, 2, 2}};
     e1->mesh = &state.mesh;
 
-    Entity *e2 = spawn_entity(&state.world);
+    Entity *e2 = ecs_spawn_entity(&state.world);
+    e2->mask = COMPONENT_TRANSFORM | COMPONENT_MESH;
     e2->transform.position = (vec3s){{-2, -2, -2}};
     e2->mesh = &state.mesh;
 }
