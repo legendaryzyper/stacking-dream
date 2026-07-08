@@ -7,6 +7,7 @@
 #include "../gfx/buffer.h"
 #include "../gfx/texture.h"
 
+// how to intergrate this with model.h
 typedef struct Mesh {
     f32 *vertices;
     u32 *indices;
@@ -18,5 +19,5 @@ typedef struct Mesh {
 } Mesh;
 
 void mesh_init(Mesh *self, f32 *vertices, u32 *indices, Texture *texture);
-void mesh_render(Mesh * self);
+void mesh_render(Mesh *self);
 void mesh_destroy(Mesh *self);

@@ -2,6 +2,8 @@
 #include "state.h"
 #include "gfx/window.h"
 
+#include "gfx/model.h"
+
 State state;
 
 static void init(void) {
@@ -23,6 +25,7 @@ static void init(void) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    // TODO : need to change thiss into a vertex struct
     f32 vertices_i[] = {-0.5f, 0.0f, 0.5f, 0.0f, 0.0f, -0.5f, 0.0f, -0.5f, 5.0f, 0.0f, 0.5f, 0.0f, -0.5f,
                         0.0f,  0.0f, 0.5f, 0.0f, 0.5f, 5.0f,  0.0f, 0.0f,  0.8f, 0.0f, 2.5f, 5.0f};
     f32 *vertices = NULL;
@@ -39,6 +42,10 @@ static void init(void) {
     mesh_init(&state.mesh, vertices, indices, &brick);
 
     // could create another function in world call init_entity no that better in world ?
+
+    Model model = {0};
+    load_glb_model_test(&model, "res/models/Duck.glb");
+
     Entity *e = ecs_spawn_entity(&state.world);
     e->mask = COMPONENT_TRANSFORM | COMPONENT_MESH;
     e->transform.position = (vec3s){{0, 0, 0}};
