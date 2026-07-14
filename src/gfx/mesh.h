@@ -7,17 +7,21 @@
 #include "../gfx/buffer.h"
 #include "../gfx/texture.h"
 
-// how to intergrate this with model.h
+typedef struct Vertex {
+    vec3s position;
+    vec3s normal;
+    vec2s uv;
+    vec4s tangent;
+} Vertex;
+
 typedef struct Mesh {
-    f32 *vertices;
+    Vertex *vertices;
     u32 *indices;
     VertexArray VAO;
     Buffer VBO, EBO;
     Texture *texture;
-    u64 indices_count;
-    vec3s position;
 } Mesh;
 
-void mesh_init(Mesh *self, f32 *vertices, u32 *indices, Texture *texture);
+void mesh_init(Mesh *self, Vertex *vertices, u32 *indices, Texture *texture);
 void mesh_render(Mesh *self);
 void mesh_destroy(Mesh *self);

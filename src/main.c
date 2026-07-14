@@ -3,6 +3,7 @@
 #include "gfx/window.h"
 
 #include "gfx/model.h"
+#include "util/types.h"
 
 State state;
 
@@ -25,41 +26,15 @@ static void init(void) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    // TODO : need to change thiss into a vertex struct
-    f32 vertices_i[] = {-0.5f, 0.0f, 0.5f, 0.0f, 0.0f, -0.5f, 0.0f, -0.5f, 5.0f, 0.0f, 0.5f, 0.0f, -0.5f,
-                        0.0f,  0.0f, 0.5f, 0.0f, 0.5f, 5.0f,  0.0f, 0.0f,  0.8f, 0.0f, 2.5f, 5.0f};
-    f32 *vertices = NULL;
-    arrsetlen(vertices, sizeof(vertices_i) / sizeof(f32));
-    memcpy(vertices, vertices_i, sizeof(vertices_i));
+    load_glb_model(&state.model, "res/models/Duck.glb");
 
-    u32 indices_i[] = {0, 1, 2, 0, 2, 3, 1, 0, 4, 2, 1, 4, 3, 2, 4, 0, 3, 4};
-    u32 *indices = NULL;
-    arrsetlen(indices, sizeof(indices_i) / sizeof(u32));
-    memcpy(indices, indices_i, sizeof(indices_i));
-
-    Texture brick;
-    texture_init(&brick, GL_TEXTURE_2D, 0, "res/textures/brick.png");
-    mesh_init(&state.mesh, vertices, indices, &brick);
-
-    // could create another function in world call init_entity no that better in world ?
-
-    Model model = {0};
-    load_glb_model_test(&model, "res/models/Duck.glb");
-
+    // TODO: fix for multiple meshes , texture, complex object
     Entity *e = ecs_spawn_entity(&state.world);
     e->mask = COMPONENT_TRANSFORM | COMPONENT_MESH;
     e->transform.position = (vec3s){{0, 0, 0}};
-    e->mesh = &state.mesh;
-
-    Entity *e1 = ecs_spawn_entity(&state.world);
-    e1->mask = COMPONENT_TRANSFORM | COMPONENT_MESH;
-    e1->transform.position = (vec3s){{2, 2, 2}};
-    e1->mesh = &state.mesh;
-
-    Entity *e2 = ecs_spawn_entity(&state.world);
-    e2->mask = COMPONENT_TRANSFORM | COMPONENT_MESH;
-    e2->transform.position = (vec3s){{-2, -2, -2}};
-    e2->mesh = &state.mesh;
+    e->transform.scale = (vec3s){{1, 1, 1}};
+    e->transform.rotation = (vec3s){{0, 0, 0}};
+    e->mesh = &state.model.meshes[0];
 }
 
 static void input(void) { player_input(&state.player); }
@@ -84,7 +59,7 @@ static void render(void) {
 static void destroy(void) {
     shader_destroy(&state.shader);
     player_destroy(&state.player);
-    mesh_destroy(&state.mesh);
+    model_destroy(&state.model);
 }
 
 int main(void) {

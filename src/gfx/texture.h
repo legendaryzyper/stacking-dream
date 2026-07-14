@@ -12,5 +12,7 @@ typedef struct Texture {
 
 void texture_system_init(void);
 void texture_bind(Texture *self);
-void texture_init(Texture *self, GLenum type, u32 slot, const char *path);
+void texture_init_fall_back(Texture *self, GLenum type, u32 slot, const u8 rgba[4]);
+void texture_init_from_memory(Texture *self, GLenum type, u32 slot, const u8 *buffer, int len);
+// TODO: texture init for when wanting to put a picture in
 void texture_destroy(Texture *self);

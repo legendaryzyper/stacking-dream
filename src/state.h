@@ -4,14 +4,14 @@
 #include "util/util.h"
 
 #include "gfx/shader.h"
-#include "gfx/mesh.h"
+#include "gfx/model.h"
 #include "entity/player.h"
 #include "world/world.h"
 
 typedef struct State {
     World world;
     Shader shader;
-    Mesh mesh;
+    Model model;
     Player player;
 } State;
 

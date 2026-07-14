@@ -25,7 +25,8 @@ void ecs_render(World *world) {
     for (u32 i = 0; i < world->entities_count; i++) {
         Entity *e = &world->entities[i];
 
-        if ((e->mask) != (COMPONENT_TRANSFORM | COMPONENT_MESH)) continue;
+        if ((e->mask & (COMPONENT_TRANSFORM | COMPONENT_MESH)) != (COMPONENT_TRANSFORM | COMPONENT_MESH))
+            continue;
         TransformComponent *t = &e->transform;
         mat4s model = glms_mat4_identity();
         model = glms_translate(model, t->position);
