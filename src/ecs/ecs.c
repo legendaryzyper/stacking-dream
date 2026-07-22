@@ -8,12 +8,10 @@ void ecs_init(World *world) { world->entities_count = 0; }
 void ecs_input(World *world) {}
 
 void ecs_tick(World *world) {
-    float arr[3] = {0.2f, 0.3f, 0.5f};
     for (u32 i = 0; i < world->entities_count; i++) {
         Entity *e = &world->entities[i];
         if (!(e->mask & COMPONENT_TRANSFORM)) continue;
-        e->transform.rotation.y += arr[i];
-        e->transform.rotation.x += arr[i];
+        e->transform.rotation.y += 0.3;
     }
 }
 
@@ -27,6 +25,7 @@ void ecs_render(World *world) {
 
         if ((e->mask & (COMPONENT_TRANSFORM | COMPONENT_MESH)) != (COMPONENT_TRANSFORM | COMPONENT_MESH))
             continue;
+        if (!e->model) continue;
         TransformComponent *t = &e->transform;
         mat4s model = glms_mat4_identity();
         model = glms_translate(model, t->position);
@@ -36,7 +35,7 @@ void ecs_render(World *world) {
         model = glms_scale(model, t->scale);
 
         shader_uniform_mat4(&state.shader, "model", model);
-        mesh_render(e->mesh);
+        model_render(e);
     }
 }
 
@@ -47,7 +46,7 @@ Entity *ecs_spawn_entity(World *world) {
     world->entities[idx].mask = 0;
     world->entities[idx].transform = (TransformComponent){0};
     world->entities[idx].transform.scale = (vec3s){{1, 1, 1}};
-    world->entities[idx].mesh = NULL;
+    world->entities[idx].model = NULL;
 
     return &world->entities[idx];
 }

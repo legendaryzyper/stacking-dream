@@ -4,7 +4,7 @@
 #include "../util/util.h"
 
 typedef struct World World;
-typedef struct Mesh Mesh;
+typedef struct Model Model;
 
 #define COMPONENT_TRANSFORM (1 << 0)
 #define COMPONENT_MESH (1 << 1)
@@ -23,7 +23,7 @@ typedef struct {
     TransformComponent transform;
     // PhysicComponent physic;
     // CollisionComponent collison;
-    Mesh *mesh;
+    Model *model;
 } Entity;
 
 void ecs_init(World *world);

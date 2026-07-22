@@ -222,6 +222,10 @@ static void load_texture_from_primitive(Texture *out_texture, const cgltf_primit
     return;
 }
 
+void model_render(Entity *entity) {
+    for (u32 i = 0; i < entity->model->mesh_count; i++) { mesh_render(&entity->model->meshes[i]); }
+}
+
 void model_destroy(Model *self) {
     for (u64 i = 0; i < self->mesh_count; i++) { mesh_destroy(&self->meshes[i]); }
     if (self->meshes) arrfree(self->meshes);

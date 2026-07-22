@@ -1,8 +1,6 @@
 #include "texture.h"
 #include <stb_image.h>
 
-void texture_system_init(void) { stbi_set_flip_vertically_on_load(false); }
-
 void texture_bind(Texture *self) {
     glActiveTexture(GL_TEXTURE0 + self->slot);
     glBindTexture(self->type, self->handle);

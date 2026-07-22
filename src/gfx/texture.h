@@ -10,7 +10,6 @@ typedef struct Texture {
     ivec2s size;
 } Texture;
 
-void texture_system_init(void);
 void texture_bind(Texture *self);
 void texture_init_fall_back(Texture *self, GLenum type, u32 slot, const u8 rgba[4]);
 void texture_init_from_memory(Texture *self, GLenum type, u32 slot, const u8 *buffer, int len);

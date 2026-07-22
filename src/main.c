@@ -8,7 +8,6 @@
 State state;
 
 static void init(void) {
-    texture_system_init();
     shader_init(&state.shader, "res/shaders/default.vert", "res/shaders/default.frag");
     player_init(&state.player);
 
@@ -28,13 +27,12 @@ static void init(void) {
 
     load_glb_model(&state.model, "res/models/Duck.glb");
 
-    // TODO: fix for multiple meshes , texture, complex object
     Entity *e = ecs_spawn_entity(&state.world);
     e->mask = COMPONENT_TRANSFORM | COMPONENT_MESH;
-    e->transform.position = (vec3s){{0, 0, 0}};
+    e->transform.position = (vec3s){{-0.4f, 0.52f, 0}};
     e->transform.scale = (vec3s){{1, 1, 1}};
-    e->transform.rotation = (vec3s){{0, 0, 0}};
-    e->mesh = &state.model.meshes[0];
+    e->transform.rotation = (vec3s){{20, 0, 40}};
+    e->model = &state.model;
 }
 
 static void input(void) { player_input(&state.player); }
